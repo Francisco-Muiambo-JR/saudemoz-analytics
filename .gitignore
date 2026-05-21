@@ -1,0 +1,16 @@
+# Ambiente virtual
+venv/
+
+# Ficheiros sensíveis
+.env
+
+# Ficheiros Python compilados
+__pycache__/
+*.pyc
+
+# Ficheiros do sistema
+.DS_Store
+Thumbs.db
+
+# Ficheiros de teste
+test_api.py
