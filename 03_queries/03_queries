@@ -1,0 +1,57 @@
+-- ============================================================
+-- Ficheiro: 03_queries/01_tendencias.sql
+-- Objectivo: Analisar tendências dos indicadores ao longo
+--            do tempo
+-- Projecto: SaúdeMoz Analytics
+-- ============================================================
+
+-- Query 1: Evolução da expectativa de vida em Moçambique
+SELECT
+    year                                    AS ano,
+    value                                   AS expectativa_vida,
+    ROUND(value - LAG(value) OVER (
+        ORDER BY year
+    ), 3)                                   AS variacao_anual,
+    ROUND((value - FIRST_VALUE(value) OVER (
+        ORDER BY year
+    )) * 100.0 / FIRST_VALUE(value) OVER (
+        ORDER BY year
+    ), 2)                                   AS crescimento_desde_2000
+FROM health_indicators
+WHERE indicator_code = 'SP.DYN.LE00.IN'
+ORDER BY year;
+
+
+-- Query 2: Comparação de todos os indicadores no ano mais recente
+SELECT
+    indicator_name                          AS indicador,
+    year                                    AS ano,
+    value                                   AS valor
+FROM health_indicators
+WHERE year = (SELECT MAX(year) FROM health_indicators)
+ORDER BY indicator_name;
+
+
+-- Query 3: Tendência de mortalidade infantil
+SELECT
+    year                                    AS ano,
+    value                                   AS mortalidade_infantil,
+    ROUND(value - LAG(value) OVER (
+        ORDER BY year
+    ), 3)                                   AS variacao_anual
+FROM health_indicators
+WHERE indicator_code = 'SP.DYN.IMRT.IN'
+ORDER BY year;
+
+
+-- Query 4: Correlação entre acesso a água e expectativa de vida
+SELECT
+    a.year                                  AS ano,
+    a.value                                 AS acesso_agua_pct,
+    b.value                                 AS expectativa_vida
+FROM health_indicators a
+JOIN health_indicators b
+    ON a.year = b.year
+WHERE a.indicator_code = 'SH.H2O.BASW.ZS'
+  AND b.indicator_code = 'SP.DYN.LE00.IN'
+ORDER BY a.year;

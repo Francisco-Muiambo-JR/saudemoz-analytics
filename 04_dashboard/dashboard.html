@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaúdeMoz Analytics</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #F0F2F5;
+            color: #1A1A2E;
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, #003087 0%, #006400 100%);
+            color: white;
+            padding: 2.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-left h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        .header-left p {
+            font-size: 0.95rem;
+            opacity: 0.85;
+            margin-top: 0.4rem;
+        }
+        .header-badge {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+        .header-badge strong {
+            display: block;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        /* CONTAINER */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 2rem;
+        }
+
+        /* SECTION TITLE */
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #003087;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 2rem 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #006400;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* KPI GRID */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .kpi-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.2rem;
+            box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+            border-top: 3px solid;
+            transition: transform 0.2s;
+        }
+        .kpi-card:hover { transform: translateY(-2px); }
+        .kpi-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .kpi-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.3rem;
+        }
+        .kpi-label {
+            font-size: 0.75rem;
+            color: #666;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.3rem;
+        }
+        .kpi-delta {
+            font-size: 0.78rem;
+            font-weight: 500;
+        }
+        .delta-up   { color: #006400; }
+        .delta-down { color: #DC143C; }
+
+        /* CHART GRID */
+        .chart-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin-bottom: 1.2rem;
+        }
+        .chart-grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.2rem;
+            margin-bottom: 1.2rem;
+        }
+        .chart-full {
+            margin-bottom: 1.2rem;
+        }
+        .chart-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.2rem;
+            box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+        }
+        .chart-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: #1A1A2E;
+            color: rgba(255,255,255,0.6);
+            padding: 1.5rem 3rem;
+            text-align: center;
+            font-size: 0.82rem;
+            margin-top: 2rem;
+        }
+        .footer a { color: #32CD32; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <div class="header-left">
+        <h1>🏥 SaúdeMoz Analytics</h1>
+        <p>Plataforma de Análise de Indicadores de Saúde Pública de Moçambique · 2000–2023</p>
+        <p style="font-size:0.8rem; opacity:0.7; margin-top:0.3rem;">
+            Pipeline ETL automatizado · World Bank Open Data · PostgreSQL Cloud
+        </p>
+    </div>
+    <div class="header-badge">
+        <strong>2023</strong>
+        Dados mais recentes
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- KPIs -->
+    <div class="section-title">📊 Indicadores Principais — 2023</div>
+    <div class="kpi-grid">
+        <div class="kpi-card" style="border-top-color: #006400;">
+            <div class="kpi-icon">❤️</div>
+            <div class="kpi-value" style="color:#006400;">63.6</div>
+            <div class="kpi-label">Expectativa de Vida</div>
+            <div class="kpi-delta delta-up">▲ +14.1 anos desde 2000</div>
+        </div>
+        <div class="kpi-card" style="border-top-color: #DC143C;">
+            <div class="kpi-icon">👶</div>
+            <div class="kpi-value" style="color:#DC143C;">44.9</div>
+            <div class="kpi-label">Mortalidade Infantil</div>
+            <div class="kpi-delta delta-down">por 1.000 nascimentos</div>
+        </div>
+        <div class="kpi-card" style="border-top-color: #FF8C00;">
+            <div class="kpi-icon">🦠</div>
+            <div class="kpi-value" style="color:#FF8C00;">11.8%</div>
+            <div class="kpi-label">Prevalência HIV</div>
+            <div class="kpi-delta delta-down">% adultos infectados</div>
+        </div>
+        <div class="kpi-card" style="border-top-color: #1E90FF;">
+            <div class="kpi-icon">💉</div>
+            <div class="kpi-value" style="color:#1E90FF;">70%</div>
+            <div class="kpi-label">Cobertura Vacinal</div>
+            <div class="kpi-delta delta-up">% crianças vacinadas DTP</div>
+        </div>
+        <div class="kpi-card" style="border-top-color: #17BECF;">
+            <div class="kpi-icon">💧</div>
+            <div class="kpi-value" style="color:#17BECF;">64.5%</div>
+            <div class="kpi-label">Acesso a Água</div>
+            <div class="kpi-delta delta-up">% população com acesso</div>
+        </div>
+        <div class="kpi-card" style="border-top-color: #2CA02C;">
+            <div class="kpi-icon">🚿</div>
+            <div class="kpi-value" style="color:#2CA02C;">37.3%</div>
+            <div class="kpi-label">Saneamento Básico</div>
+            <div class="kpi-delta delta-up">% população com acesso</div>
+        </div>
+    </div>
+
+    <!-- GRÁFICO 1 — EXPECTATIVA DE VIDA -->
+    <div class="section-title">📈 Evolução dos Indicadores</div>
+    <div class="chart-full">
+        <div class="chart-card">
+            <div class="chart-title">Expectativa de Vida ao Nascer em Moçambique (2000–2023)</div>
+            <div id="chart_vida"></div>
+        </div>
+    </div>
+
+    <!-- GRÁFICOS 2x2 -->
+    <div class="chart-grid-2">
+        <div class="chart-card">
+            <div class="chart-title">Mortalidade Infantil vs Expectativa de Vida</div>
+            <div id="chart_corr"></div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">Acesso a Infraestruturas Básicas (% população)</div>
+            <div id="chart_infra"></div>
+        </div>
+    </div>
+
+    <div class="chart-grid-3">
+        <div class="chart-card">
+            <div class="chart-title">Prevalência do HIV (% adultos)</div>
+            <div id="chart_hiv"></div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">Cobertura Vacinal DTP (% crianças)</div>
+            <div id="chart_vac"></div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">Despesa em Saúde (% PIB)</div>
+            <div id="chart_desp"></div>
+        </div>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    <p>
+        <strong style="color:white;">SaúdeMoz Analytics</strong> · 
+        Dados: <a href="https://data.worldbank.org/country/mozambique" target="_blank">World Bank Open Data</a> · 
+        Pipeline ETL em Python · PostgreSQL · Plotly
+    </p>
+    <p style="margin-top:0.4rem;">
+        Desenvolvido por <strong style="color:white;">Francisco Salomão Muiambo Jr</strong> · 
+        <a href="https://github.com/Francisco-Muiambo-JR/saudemoz-analytics" target="_blank">GitHub</a>
+    </p>
+</div>
+
+<script>
+const layout = {
+    margin: {t:20, r:20, b:40, l:50},
+    paper_bgcolor: 'white',
+    plot_bgcolor: 'white',
+    font: {family: 'Inter, sans-serif', size: 11, color: '#333'},
+    xaxis: {showgrid: true, gridcolor: '#F0F0F0', linecolor: '#E0E0E0'},
+    yaxis: {showgrid: true, gridcolor: '#F0F0F0', linecolor: '#E0E0E0'},
+    height: 300
+};
+
+// CHART 1 — Expectativa de Vida
+Plotly.newPlot('chart_vida', [{
+    x: [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023],
+    y: [49.48, 50.26, 50.88, 51.38, 51.86, 52.32, 52.75, 53.26, 53.8, 54.4, 55.04, 55.73, 56.46, 57.19, 57.96, 58.71, 59.46, 60.15, 60.79, 61.31, 61.39, 60.27, 63.01, 63.61],
+    type: 'scatter', mode: 'lines+markers',
+    fill: 'tozeroy',
+    fillcolor: 'rgba(0,100,0,0.08)',
+    line: {color: '#006400', width: 2.5},
+    marker: {color: '#006400', size: 5},
+    name: 'Expectativa de Vida'
+}], {...layout, height: 280,
+    yaxis: {...layout.yaxis, title: 'Anos'},
+    xaxis: {...layout.xaxis, title: 'Ano', dtick: 2}
+}, {responsive: true, displayModeBar: false});
+
+// CHART 2 — Correlação
+Plotly.newPlot('chart_corr', [
+    {
+        x: [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023],
+        y: [49.48, 50.26, 50.88, 51.38, 51.86, 52.32, 52.75, 53.26, 53.8, 54.4, 55.04, 55.73, 56.46, 57.19, 57.96, 58.71, 59.46, 60.15, 60.79, 61.31, 61.39, 60.27, 63.01, 63.61],
+        type: 'scatter', mode: 'lines+markers',
+        line: {color: '#006400', width: 2},
+        marker: {size: 4},
+        name: 'Expectativa de Vida',
+        yaxis: 'y'
+    },
+    {
+        x: [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023],
+        y: [106.9, 100.8, 95.2, 90.0, 85.1, 80.5, 76.0, 70.1, 67.4, 63.9, 63.6, 59.8, 57.1, 56.1, 55.1, 53.8, 52.8, 51.4, 50.3, 49.2, 48.6, 47.1, 45.9, 44.9],
+        type: 'scatter', mode: 'lines+markers',
+        line: {color: '#DC143C', width: 2},
+        marker: {size: 4},
+        name: 'Mortalidade Infantil',
+        yaxis: 'y2'
+    }
+], {
+    ...layout,
+    margin: {t:20, r:70, b:60, l:60},
+    yaxis: {title: 'Expectativa (anos)', color: '#006400', showgrid: true, gridcolor: '#F0F0F0', domain: [0, 1]},
+    yaxis2: {title: 'Mortalidade (por 1000)', color: '#DC143C', overlaying: 'y', side: 'right', showgrid: false, domain: [0, 1], anchor: 'x'},
+    legend: {orientation: 'h', y: -0.3, x: 0},
+    xaxis: {...layout.xaxis, dtick: 4}
+}, {responsive: true, displayModeBar: false});
+
+// CHART 3 — Infraestruturas
+Plotly.newPlot('chart_infra', [
+    {
+        x: [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023],
+        y: [23.44, 24.45, 25.89, 27.36, 28.86, 30.39, 31.95, 33.53, 35.28, 37.07, 38.89, 40.73, 42.59, 44.48, 46.39, 48.32, 50.27, 52.25, 54.24, 56.26, 58.29, 60.35, 62.42, 64.52],
+        type: 'scatter', mode: 'lines',
+        fill: 'tozeroy', fillcolor: 'rgba(23,190,207,0.15)',
+        line: {color: '#17BECF', width: 2},
+        name: 'Água Potável'
+    },
+    {
+        x: [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023],
+        y: [10.74, 11.69, 12.67, 13.66, 14.66, 15.66, 16.67, 17.7, 18.82, 19.96, 21.12, 22.28, 23.46, 24.66, 25.86, 27.08, 28.3, 29.54, 30.8, 32.06, 33.34, 34.63, 35.94, 37.26],
+        type: 'scatter', mode: 'lines',
+        fill: 'tozeroy', fillcolor: 'rgba(44,160,44,0.15)',
+        line: {color: '#2CA02C', width: 2},
+        name: 'Saneamento Básico'
+    }
+], {
+    ...layout,
+    yaxis: {...layout.yaxis, title: '% População', range: [0, 100]},
+    xaxis: {...layout.xaxis, dtick: 4},
+    legend: {orientation: 'h', y: -0.25}
+}, {responsive: true, displayModeBar: false});
+
+// CHART 4 — HIV
+Plotly.newPlot('chart_hiv', [{
+    x: [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023],
+    y: [8.8, 9.4, 9.9, 10.3, 10.6, 10.9, 11.1, 11.3, 11.6, 11.8, 12.0, 12.3, 12.4, 12.6, 12.7, 12.8, 12.9, 12.8, 12.8, 12.7, 12.6, 12.4, 12.1, 11.8],
+    type: 'bar',
+    marker: {
+        color: [8.8, 9.4, 9.9, 10.3, 10.6, 10.9, 11.1, 11.3, 11.6, 11.8, 12.0, 12.3, 12.4, 12.6, 12.7, 12.8, 12.9, 12.8, 12.8, 12.7, 12.6, 12.4, 12.1, 11.8],
+        colorscale: [[0,'#FFE0E0'],[1,'#DC143C']],
+        showscale: false
+    },
+    name: 'HIV'
+}], {
+    ...layout,
+    yaxis: {...layout.yaxis, title: '% Adultos'},
+    xaxis: {...layout.xaxis, dtick: 4}
+}, {responsive: true, displayModeBar: false});
+
+// CHART 5 — Vacinação
+Plotly.newPlot('chart_vac', [{
+    x: [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023],
+    y: [70.0, 73.0, 76.0, 85.0, 83.0, 80.0, 78.0, 75.0, 75.0, 74.0, 74.0, 77.0, 80.0, 82.0, 85.0, 85.0, 85.0, 85.0, 85.0, 85.0, 71.0, 56.0, 55.0, 70.0],
+    type: 'bar',
+    marker: {
+        color: [70.0, 73.0, 76.0, 85.0, 83.0, 80.0, 78.0, 75.0, 75.0, 74.0, 74.0, 77.0, 80.0, 82.0, 85.0, 85.0, 85.0, 85.0, 85.0, 85.0, 71.0, 56.0, 55.0, 70.0],
+        colorscale: [[0,'#E0F0E0'],[1,'#006400']],
+        showscale: false
+    },
+    name: 'Vacinação'
+}], {
+    ...layout,
+    yaxis: {...layout.yaxis, title: '% Crianças', range: [0, 100]},
+    xaxis: {...layout.xaxis, dtick: 4}
+}, {responsive: true, displayModeBar: false});
+
+// CHART 6 — Despesa em Saúde
+Plotly.newPlot('chart_desp', [{
+    x: [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023],
+    y: [2.14, 2.8, 3.19, 3.25, 3.53, 4.21, 3.95, 3.8, 4.14, 5.06, 5.29, 4.92, 5.14, 6.05, 6.24, 6.61, 7.22, 7.8, 7.98, 7.9, 7.55, 8.65, 8.25, 8.5],
+    type: 'scatter', mode: 'lines+markers',
+    fill: 'tozeroy', fillcolor: 'rgba(30,144,255,0.1)',
+    line: {color: '#1E90FF', width: 2},
+    marker: {color: '#1E90FF', size: 4},
+    name: 'Despesa'
+}], {
+    ...layout,
+    yaxis: {...layout.yaxis, title: '% PIB'},
+    xaxis: {...layout.xaxis, dtick: 4}
+}, {responsive: true, displayModeBar: false});
+
+</script>
+</body>
+</html>
