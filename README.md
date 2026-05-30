@@ -38,7 +38,7 @@ World Bank API → Extract → Transform → Load → PostgreSQL → Dashboard H
 | Base de dados cloud | Neon (PostgreSQL serverless) |
 | Dashboard | Plotly, HTML, CSS |
 | Versionamento | Git, GitHub |
-
+```
 ## 📁 Estrutura do Projecto
 saudemoz-analytics/
 ├── 01_pipeline/
@@ -52,7 +52,7 @@ saudemoz-analytics/
 │   └── generate_dashboard.py   # Gerador HTML com Plotly
 ├── pipeline.py         # Orquestrador ETL
 └── requirements.txt
-
+```
 ## 🔍 Conceitos de Data Engineering Aplicados
 
 - **Pipeline ETL** — Extract, Transform, Load automatizado
