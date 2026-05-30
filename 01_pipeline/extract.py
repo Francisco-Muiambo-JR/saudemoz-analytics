@@ -2,7 +2,6 @@
 # Ficheiro: 01_pipeline/extract.py
 # Objectivo: Extrair dados de saúde de Moçambique
 #            directamente da API do World Bank
-# Padrão: ETL — fase Extract
 # ============================================================
 
 from wsgiref import headers
@@ -13,9 +12,6 @@ import time
 
 # ============================================================
 # INDICADORES A EXTRAIR
-# Cada entrada tem:
-# - código: identificador único na API do World Bank
-# - nome: nome legível para humanos
 # ============================================================
 
 INDICADORES = {
@@ -121,7 +117,6 @@ def extract_all():
             all_data.append(df)
         
         # Pausa de 0.5 segundos entre pedidos
-        # Boas práticas: não sobrecarregar a API
         time.sleep(0.5)
     
     if not all_data:

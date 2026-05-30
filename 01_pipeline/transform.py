@@ -1,7 +1,6 @@
 # ============================================================
 # Ficheiro: 01_pipeline/transform.py
 # Objectivo: Limpar e validar os dados extraídos da API
-# Padrão: ETL — fase Transform
 # ============================================================
 
 import pandas as pd
