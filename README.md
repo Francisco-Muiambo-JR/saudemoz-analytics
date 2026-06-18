@@ -113,5 +113,3 @@ Analista de Dados
 📍 Maputo, Moçambique
 
 [![GitHub](https://img.shields.io/badge/GitHub-Francisco--Muiambo--JR-black?logo=github)](https://github.com/Francisco-Muiambo-JR)
-
-[![GitHub](https://img.shields.io/badge/GitHub-Francisco--Muiambo--JR-black?logo=github)](https://github.com/Francisco-Muiambo-JR)
