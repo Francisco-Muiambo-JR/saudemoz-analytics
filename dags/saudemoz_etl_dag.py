@@ -229,10 +229,10 @@ def task_load(**context):
     inseridos = 0
     erros = 0
 
-    with engine.connect() as conn:
+    with engine.begin() as conn:
         conn.execute(text(create_sql))
-        conn.commit()
 
+    with engine.begin() as conn:
         for _, row in df.iterrows():
             try:
                 conn.execute(text(upsert_sql), {
@@ -249,7 +249,6 @@ def task_load(**context):
                 erros += 1
                 log.error(f"Erro: {e}")
 
-        conn.commit()
 
     log.info(f"Registos carregados: {inseridos}")
     log.info(f"Erros: {erros}")
